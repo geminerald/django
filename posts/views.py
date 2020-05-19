@@ -21,7 +21,7 @@ def post_detail(request, pk):
     """
 
     post = get_object_or_404(Post, pk=pk)
-    post.view += 1
+    post.views += 1
     post.save()
     return render(request,'postdetail.html',{'post':post})
 
@@ -36,7 +36,7 @@ def create_or_edit_post(request, pk=None):
         form = BlogPostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
-            return redirect(postdetail, post.pk)
+            return redirect('post_detail', post.pk)
     else:
         form=BlogPostForm(instance=post)
         return render(request, 'blogpostform.html', {'form':form})
